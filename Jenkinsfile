@@ -5,10 +5,8 @@ pipeline {
     {
     stage('SNYK') {
       steps {
-        sh 'cd ${WORKSPACE}'
-	sh 'echo "snyk test && snyk monitor" > snyk.sh'
-	sh 'chmod +x snyk.sh'
-	sh '/bin/bash snyk.sh || true'
-	sh 'snyk test --json | snyk-to-html -o results.html'
-      }
-    }
+        	snykSecurity failOnIssues: false, snykInstallation: 'Please define a Snyk installation in the Jenkins Global Tool Configuration. This task will not run without a Snyk installation.', snykTokenId: 'snyk'
+		}
+}
+}
+}
