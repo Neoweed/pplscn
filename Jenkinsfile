@@ -20,9 +20,9 @@ pipeline {
 			{
 				steps
 				{
-				withDockerRegistry(credentialsId: 'DockerHub', url:"")
+					withDockerRegistry(credentialsId: 'DockerHub', url:"https://index.docker.io/v1/")
 					{
-					sh 'docker push truffle/mytag2:latest'
+						sh 'docker push truffle/mytag2:latest'
 					}
 				}
 			}
