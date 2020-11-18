@@ -20,6 +20,7 @@ pipeline {
         withDockerRegistry([ credentialsId: "DockerHub", url: "" ]) {
         bat "docker push truffle/mytag2:latest"
         }
+    }
 
     stage('Execute Rundeck job') {
 			      steps {
