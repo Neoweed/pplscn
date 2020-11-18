@@ -1,32 +1,26 @@
 #!groovy
 pipeline {
-  agent any
-  stages 
-    {
-    stage('SNYK') {
-      steps {
-		snykSecurity failOnIssues: false, snykInstallation: 'pulgin', snykTokenId: 'snyk'      
-	    }
-
-		  }
-    stage('Build docker images') 
+	agent any 
+	stages {
+			
+			stage('Build docker images') 
 			{
       				steps {
-        				sh 'docker build -t truffle/mytag2 .'
+        				sh 'docker build -t abhishekakuthota/mytag2 .'
       				      }
     			}
 
-    stage("push")
+			stage("push")
 			{
 				steps
 				{
 				withDockerRegistry(credentialsId: 'DockerHub', url:"")
 					{
-					sh 'docker push truffle/mytag2:latest'
+					sh 'docker push abhishekakuthota/mytag2:latest'
 					}
 				}
 			}
-    stage('Execute Rundeck job') {
+			stage('Execute Rundeck job') {
 			      steps {
 			 	 script {
 			 	   step([$class: "RundeckNotifier",
@@ -40,5 +34,10 @@ pipeline {
 					}
 				     }
 							}
-    }
-	 }
+		}
+	}
+			
+		
+	
+
+		
