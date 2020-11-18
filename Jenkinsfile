@@ -16,16 +16,11 @@ pipeline {
       				      }
     			}
 
-    stage("push")
-			{
-				steps
-				{
-					withDockerRegistry(credentialsId: 'DockerHub', url:"https://index.docker.io/v1/")
-					{
-						sh 'docker push truffle/mytag2:latest'
-					}
-				}
-			}
+    stage('Push image') {
+        withDockerRegistry([ credentialsId: "DockerHub", url: "" ]) {
+        bat "docker push truffle/mytag2:latest"
+        }
+
     stage('Execute Rundeck job') {
 			      steps {
 			 	 script {
