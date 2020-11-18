@@ -19,7 +19,7 @@ pipeline {
     stage('Push image') {
     	steps{
         withDockerRegistry([ credentialsId: "DockerHub", url: "" ]) {
-        bat "docker push truffle/mytag2:latest"
+         sh 'docker push truffle/mytag2:latest'
         }
     }
     }
