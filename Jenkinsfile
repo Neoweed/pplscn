@@ -12,14 +12,14 @@ pipeline {
     stage('Build docker images') 
 			{
       				steps {
-        				sh 'docker build -t truffle/mytag2 .'
+        				sh 'docker build -t akhilank1937/first .'
       				      }
     			}
 
     stage('Push image') {
     	steps{
         withDockerRegistry([ credentialsId: "DockerHub", url: "" ]) {
-         sh 'docker push truffle/mytag2:latest'
+         sh 'docker push akhilank1937/first:latest'
         }
     }
     }
