@@ -24,19 +24,10 @@ pipeline {
     }
     }
 
-    stage('Execute Rundeck job') {
-			      steps {
-			 	 script {
-			 	   step([$class: "RundeckNotifier",
-  			           includeRundeckLogs: true,
-			           jobId: "98e4bcee-662a-4346-9fbe-75928559a921",
-        			   rundeckInstance: "Rundeck",
-          			   shouldFailTheBuild: true,
-          			   shouldWaitForRundeckJob: true,
-          			   tags: "",
-          			   tailLog: true])
-					}
-				     }
-							}
+    stage('Execute in Jenkins'){
+    		strps{
+    			sh 'docker run --name truffle akhilank1937/first:latest --regex --entropy=False "https://github.com/Neoweed/pplscn"'
+    		}
     }
-	 }
+}
+}

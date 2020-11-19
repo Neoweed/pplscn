@@ -160,33 +160,43 @@ def print_results(printJson, issue):
     commitHash = issue['commitHash']
     reason = issue['reason']
     path = issue['path']
-
+    #f=open("output.txt",(w))
     if printJson:
         print(json.dumps(issue, sort_keys=True))
     else:
-        print("~~~~~~~~~~~~~~~~~~~~~")
+        #f=open("output.txt",(w))
+        #print("~~~~~~~~~~~~~~~~~~~~~")
         reason = "{}Reason: {}{}".format(bcolors.OKGREEN, reason, bcolors.ENDC)
         print(reason)
+        #f.write(reason)
         dateStr = "{}Date: {}{}".format(bcolors.OKGREEN, commit_time, bcolors.ENDC)
         print(dateStr)
+        #f.write(datestr)
         hashStr = "{}Hash: {}{}".format(bcolors.OKGREEN, commitHash, bcolors.ENDC)
         print(hashStr)
+        #f.write(hashStr)
         filePath = "{}Filepath: {}{}".format(bcolors.OKGREEN, path, bcolors.ENDC)
         print(filePath)
-
+        #f.write(filePath)
         if sys.version_info >= (3, 0):
             branchStr = "{}Branch: {}{}".format(bcolors.OKGREEN, branch_name, bcolors.ENDC)
             print(branchStr)
+            #f.write(branchStr)
             commitStr = "{}Commit: {}{}".format(bcolors.OKGREEN, prev_commit, bcolors.ENDC)
             print(commitStr)
-            print(printableDiff)
+            #f.write(commitStr)
+            #print(printableDiff)
+            f.write(printableDiff)
         else:
             branchStr = "{}Branch: {}{}".format(bcolors.OKGREEN, branch_name.encode('utf-8'), bcolors.ENDC)
             print(branchStr)
+            #f.write(branchStr)
             commitStr = "{}Commit: {}{}".format(bcolors.OKGREEN, prev_commit.encode('utf-8'), bcolors.ENDC)
             print(commitStr)
+            #f.write(commitStr)
             print(printableDiff.encode('utf-8'))
-        print("~~~~~~~~~~~~~~~~~~~~~")
+            #f.write(printableDiff.encode('utf-8'))
+        f.write("~~~~~~~~~~~~~~~~~~~~~")
 
 def find_entropy(printableDiff, commit_time, branch_name, prev_commit, blob, commitHash):
     stringsFound = []

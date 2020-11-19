@@ -1,0 +1,11 @@
+~~~~~~~~~~~~~~~~~~~~~
+[92mReason: Password in URL[0m
+[92mDate: 2020-08-21 16:56:33[0m
+[92mHash: 55d3ec86e894c589d74705f3044c1fd5edce996e[0m
+[92mFilepath: app.py[0m
+[92mBranch: origin/master[0m
+[92mCommit: Initial deployment
+[0m
+[93mpostgresql://postgres:Pa$$1234@localhost/Feedback'
+[0m
+~~~~~~~~~~~~~~~~~~~~~
