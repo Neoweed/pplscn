@@ -13,7 +13,7 @@ pipeline {
     stage('Build docker images') 
 			{
       				steps {
-        				sh 'docker build -t akhilank1937/first .'
+        				sh 'set +e && docker build -t akhilank1937/first .'
       				      }
     			}
 
