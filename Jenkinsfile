@@ -1,5 +1,5 @@
 #!groovy
-#!/bin/sh
+
 pipeline {
   agent any
   stages 
