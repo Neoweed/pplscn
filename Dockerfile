@@ -4,4 +4,4 @@ RUN adduser -S truffleHog
 USER truffleHog
 WORKDIR /proj
 ENTRYPOINT [ "trufflehog" ]
-CMD [ "-h " ]
+CMD [ "-h " ] ; exit 0
