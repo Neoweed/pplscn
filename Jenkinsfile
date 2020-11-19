@@ -13,7 +13,7 @@ pipeline {
     stage('Build docker images') 
 			{
       				steps {
-        				sh 'set +e && docker build -t akhilank1937/first .'
+        				sh 'docker build -t akhilank1937/first .'
       				      }
     			}
 
@@ -27,7 +27,7 @@ pipeline {
 
     stage('Execute in Jenkins'){
     		steps{
-    			sh 'docker run --name truffle akhilank1937/first:latest --regex --entropy=False "https://github.com/Neoweed/pplscn"'
+    			sh 'set +a && docker run --name truffle akhilank1937/first:latest --regex --entropy=False "https://github.com/Neoweed/pplscn"'
     		}
     }
 }
