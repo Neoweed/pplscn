@@ -27,7 +27,7 @@ pipeline {
 
     stage('Execute in Jenkins'){
     		steps{
-    			sh 'set +a && docker run --name truffle akhilank1937/first:latest --regex --entropy=False "https://github.com/Neoweed/pplscn"'
+    			sh 'docker run --name truffle akhilank1937/first:latest --regex --entropy=False "https://github.com/Neoweed/pplscn" || true '
     		}
     }
 }
