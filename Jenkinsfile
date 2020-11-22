@@ -34,7 +34,7 @@ pipeline {
 	  writeFile file: "anchore_images", text: "akhilank1937/first:latest" +" "+"/var/lib/jenkins/workspace/pipeline/Dockerfile"
 sh """ ls -ltr """
 sh """ cat anchore_images """
-anchore engineCredentialsId: 'anchore', engineurl: 'https://localhost:8228/v1/', name: 'anchore_images', annotations: [[key: 'added-by', value: 'jenkins']] , autoSubscribeTagUpdates: false, bailOnFail: false, engineRetries: '10000'
+anchore engineCredentialsId: 'anchore', engineurl: 'https://localhost:8228/v1/', name: 'anchore_images', engineverify: true, annotations: [[key: 'added-by', value: 'jenkins']] , autoSubscribeTagUpdates: false, bailOnFail: false, engineRetries: '10000'
     }
     }
     stage('Execute in Jenkins'){
