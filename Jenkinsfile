@@ -2,6 +2,11 @@
 
 pipeline {
   agent any
+  node{
+  	def path = sh returnStdout: true, script: "pwd"
+      path = path.trim()
+    def dockerfile = path + "/Dockerfile"
+  }
   stages 
     {
     stage('SNYK') {
@@ -27,9 +32,6 @@ pipeline {
 
     stage('Parallel'){
     	steps{
-      def path = sh returnStdout: true, script: "pwd"
-      path = path.trim()
-      dockerfile = path + "/Dockerfile"
 	  writeFile file: "anchore_images", text: "akhilank1937/first:latest" +" "+dockerfile
 sh """ ls -ltr """
 sh """ cat anchore_images """
