@@ -1,12 +1,13 @@
 #!groovy
 
+
+def path = sh returnStdout: true, script: "pwd"
+path = path.trim()
+def dockerfile = path + "/Dockerfile"
+
 pipeline {
   agent any
-  node{
-  	def path = sh returnStdout: true, script: "pwd"
-      path = path.trim()
-    def dockerfile = path + "/Dockerfile"
-  }
+ 
   stages 
     {
     stage('SNYK') {
