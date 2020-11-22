@@ -25,6 +25,7 @@ pipeline {
     }
     }
     stage('Configure') {
+    	steps{
     abort = false
     inputConfig = input id: 'InputConfig', message: 'Docker registry and Anchore Engine configuration', parameters: [string(defaultValue: 'https://index.docker.io/v1/', description: 'URL of the docker registry for staging images before analysis', name: 'dockerRegistryUrl', trim: true), string(defaultValue: 'docker.io', description: 'Hostname of the docker registry', name: 'dockerRegistryHostname', trim: true), string(defaultValue: 'arunaav/anchore', description: 'Name of the docker repository', name: 'dockerRepository', trim: true), credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: 'docker', description: 'Credentials for connecting to the docker registry', name: 'dockerCredentials', required: true), string(defaultValue: 'http://localhost:8228/v1/', description: 'Anchore Engine API endpoint', name: 'anchoreEngineUrl', trim: true), credentials(credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: 'anchorecreds', description: 'Credentials for interacting with Anchore Engine', name: 'anchoreEngineCredentials', required: true)]
 
@@ -39,6 +40,7 @@ pipeline {
         currentBuild.result = 'ABORTED'
         error('Aborting build due to invalid input')
     }
+}
 }
     stage('Anchore on container scanning'){
     	parallel Test: {
