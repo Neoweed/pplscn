@@ -25,13 +25,13 @@ pipeline {
     }
     }
 
-    stage('Anchore on container scanning'){
-    	parallel Test: {
-app.inside {
-sh 'echo "Dummy - tests passed"'
-}
-},
-Analyze: {
+    stage('Parallel'){
+    	Parallel Test: {
+					app.inside {
+						sh 'echo "Dummy - tests passed"'
+								}
+						},
+		Analyze: {
 writeFile file: anchorefile, text: "akhilank1937/first:latest" +" "+dockerfile 
 sh """ ls -ltr """
 sh """ cat anchore_images """
