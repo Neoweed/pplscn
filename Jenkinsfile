@@ -27,7 +27,7 @@ pipeline {
 
     stage('Parallel'){
     	steps{
-writeFile file: anchorefile, text: "akhilank1937/first:latest" +" "+dockerfile 
+writeFile file: anchore_images, text: "akhilank1937/first:latest" +" "+dockerfile 
 sh """ ls -ltr """
 sh """ cat anchore_images """
 anchore engineCredentialsId: 'anchore', engineurl: 'https://localhost:8228/v1/', name: 'anchore_images', annotations: [[key: 'added-by', value: 'jenkins']] , autoSubscribeTagUpdates: false, bailOnFail: false, engineRetries: '10000'
