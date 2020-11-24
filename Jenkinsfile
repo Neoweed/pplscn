@@ -22,6 +22,7 @@ pipeline {
          						sh 'docker push akhilank1937/first:latest'
         				  }
     			}
+    		}
 
 
     stage('Parallel'){
