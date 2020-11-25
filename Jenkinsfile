@@ -2,6 +2,9 @@
 
 pipeline {
   agent any
+  options {
+        timeout(time: 300, unit: 'SECONDS') 
+    }
  	environment {
         path11 = sh(returnStdout: true, script: 'pwd')
     }
@@ -23,19 +26,40 @@ pipeline {
         				  }
     			}
     		}
+    stage('anchore'){
+    	steps{
 
+	  writeFile file: "anchore_images", text: "akhilank1937/first:latest" +" "+"/var/lib/jenkins/workspace/pipeline/Dockerfile"
+sh """ ls -ltr """
+sh """ cat anchore_images """
+anchore engineCredentialsId: 'anchore', engineurl: 'http://localhost:8228/v1/', name: 'anchore_images', engineverify: true,annotations: [[key: 'added-by', value: 'jenkins'],[key: 'force', value: 'True']], autoSubscribeTagUpdates: false, bailOnFail: false, engineRetries: '10000'
+    }
+    }
 
     stage('Trufflehog'){
     		steps{
     			sh 'docker run --name truffle akhilank1937/first:latest --regex --entropy=False "https://github.com/Neoweed/pplscn" || true '
     			sh 'docker rm truffle || true'
     		}
-    }
-
-    stage('Deply web application'){
+	    }
+	stage('Deploy and Dast'){
+	parallel(
+    stage('Deploy web application'){
     	steps{
     		sh 'mvn clean install || true'
     	}
+    }
+    stage('DAST') {
+            steps {
+                script {
+                	sh 'docker pull owasp/zap2docker-stable'
+                	sh 'sleep 30'
+                    sh 'docker run -v /var/lib/jenkins/workspace/test1/:/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t "http://172.17.0.1:8080" -g gen.conf -r testreport.html || true'
+
+                }
+            }
+        }
+    )
     }
 
 }
