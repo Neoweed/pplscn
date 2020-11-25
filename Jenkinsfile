@@ -42,13 +42,14 @@ anchore engineCredentialsId: 'anchore', engineurl: 'http://localhost:8228/v1/', 
     			sh 'docker rm truffle || true'
     		}
 	    }
-	stage('Deploy and Dast'){
-	parallel(
+	parallel {
+    stages('Deploy and Dast'){
     stage('Deploy web application'){
     	steps{
     		sh 'mvn clean install || true'
     	}
     }
+
     stage('DAST') {
             steps {
                 script {
@@ -59,7 +60,7 @@ anchore engineCredentialsId: 'anchore', engineurl: 'http://localhost:8228/v1/', 
                 }
             }
         }
-    )
+    }
     }
 
 }
