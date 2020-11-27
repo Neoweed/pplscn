@@ -38,7 +38,7 @@ pipeline {
 
     stage('Trufflehog'){
     		steps{
-    			sh 'docker run --name truffle akhilank1937/first:latest --regex --entropy=False "https://github.com/Neoweed/pplscn" || true '
+    			sh 'docker run --name truffle akhilank1937/first:latest --regex --entropy=False "https://github.com/Neoweed/pplscn"|| true '
     			sh 'docker rm truffle || true'
     		}
 	    }
@@ -55,7 +55,9 @@ pipeline {
                 script {
                 	sh 'docker pull owasp/zap2docker-stable'
                 	sh 'sleep 30'
-                    sh 'docker run -v /var/lib/jenkins/workspace/test1/:/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t "http://172.17.0.1:8080" -g gen.conf -r testreport.html || true'
+                	sh 'chmod a+r $(pwd)'
+                	sh 'chmod a+w $(pwd)'
+                    sh 'docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t "http://172.17.0.1:8080" -g gen.conf -r test.html || true'
 
                 }
             }
