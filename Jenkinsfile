@@ -2,9 +2,6 @@
 
 pipeline {
   agent any
-  options {
-        timeout(time: 300, unit: 'SECONDS') 
-    }
  	environment {
         path11 = sh(returnStdout: true, script: 'pwd')
     }
@@ -12,7 +9,8 @@ pipeline {
     {
     stage('SNYK') {
       steps {
-		snykSecurity failOnIssues: false, snykInstallation: 'pulgin', snykTokenId: 'snyk'      
+		snykSecurity failOnIssues: false, snykInstallation: 'pulgin', snykTokenId: 'snyk'     
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/final', reportFiles: 'final_snyk_report.html', reportName: 'SAST Report', reportTitles: ''])
 	    }
 
 		  }
