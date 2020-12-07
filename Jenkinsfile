@@ -7,7 +7,7 @@ pipeline {
     }
   stages 
     {
-    stage('SNYK') {
+    stage('SAST') {
       steps {
 		snykSecurity failOnIssues: false, snykInstallation: 'pulgin', snykTokenId: 'snyk'     
         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/final', reportFiles: 'final_snyk_report.html', reportName: 'SAST Report', reportTitles: ''])
@@ -24,7 +24,7 @@ pipeline {
         				  }
     			}
     		}
-    stage('anchore'){
+    stage('Container Security Analysis'){
     	steps{
 
 	  	writeFile file: "anchore_images", text: "akhilank1937/first:latest" +" "+"/var/lib/jenkins/workspace/pipeline/Dockerfile"
@@ -34,7 +34,7 @@ pipeline {
     }
     }
 
-    stage('Trufflehog'){
+    stage('Secret Analysis'){
     		steps{
     			sh 'docker run --name truffle akhilank1937/first:latest --regex --entropy=False "https://github.com/Neoweed/pplscn"|| true '
     			sh 'docker rm truffle || true'
